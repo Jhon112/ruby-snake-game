@@ -14,6 +14,6 @@ To run the application after cloning the project:
     ruby src/app.rb
 ```
 
-# Contributing
+## Contributing
 
 Pull requests are welcome.
