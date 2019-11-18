@@ -16,10 +16,10 @@ class App
 
         # start uses main thread to do the render, because of that we need a new thread
         # to handle the render
-        Thread.new { init_timer(view) }
+        Thread.new { init_timer(@view) }
 
         # start window
-        view.start(@state)
+        @view.start(@state)
     end
 
     def init_timer(view)
