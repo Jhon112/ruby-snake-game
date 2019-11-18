@@ -26,10 +26,10 @@ module Models
 
     # Class to hold together all of our instances this way we can access each instance
     # from a unique state
-    class State < Struct.new(:snake, :food, :grid, :next_direction, :game_finished)
+    class State < Struct.new(:snake, :food, :grid, :current_direction, :game_finished)
     end
 
-    # class method to instance State, it create the instances for snake, food, grid, next_direction
+    # class method to instance State, it create the instances for snake, food, grid, current_direction
     # and sets game_finished to false
     def self.initial_state
         Models::State.new(
