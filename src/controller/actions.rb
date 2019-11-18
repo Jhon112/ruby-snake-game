@@ -3,9 +3,9 @@ module Actions
     # It's in chage of calculatinf the new position and checking if it's valid.
     # Returns the state edited
     def self.move_snake(state)
-        next_direction = state.next_direction
+        next_direction = state.current_direction
         next_position = calc_next_position(state)
-        # check if next_direction is valid
+        # check if current_direction is valid
         # if not, game ends
         # if true, moves snake
         if position_is_valid?(state, next_position)
@@ -15,11 +15,20 @@ module Actions
         end
     end
 
+    def self.change_direction(state, direction)
+        if next_direction_is_valid?(state,direction)
+            state.current_direction = direction
+        else
+            puts "Invalid direction"
+        end
+        return state
+    end
+
     private
       
     def self.calc_next_position(state)
         curr_position = state.snake.positions.first
-        case state.next_direction
+        case state.current_direction
         when Models::Direction::UP
             # decrease row
             return Models::Coord.new(
@@ -69,5 +78,20 @@ module Actions
     def self.end_game(state)
         state.game_finished = true
         return state
+    end
+
+    def self.next_direction_is_valid?(state,direction)
+        case state.current_direction
+        when Models::Direction::UP
+            return true if direction != Models::Direction::DOWN
+        when Models::Direction::DOWN
+            return true if direction != Models::Direction::UP
+        when Models::Direction::RIGHT
+            return true if direction != Models::Direction::LEFT
+        when Models::Direction::LEFT
+            return true if direction != Models::Direction::RIGHT
+        end
+
+        return false
     end
 end
