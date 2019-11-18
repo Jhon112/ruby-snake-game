@@ -2,8 +2,9 @@ require "ruby2d"
 
 module View
     class Ruby2dView
-        def initialize
+        def initialize(app)
             @pixel_size = 50
+            @app = app
         end
 
         # sets window attributes
@@ -15,6 +16,12 @@ module View
                 width: @pixel_size * state.grid.cols,
                 height: @pixel_size * state.grid.rows
             )
+            
+            on :key_down do |event|
+                # A key was pressed
+                handle_key_event(event)
+            end
+
             show
         end
         # call render_snake and food methods to display snake and food objs on window
@@ -55,6 +62,23 @@ module View
                 y: food.row * @pixel_size,
                 size: @pixel_size
             )
+        end
+
+        def handle_key_event(event)
+            case event.key
+            when "up"
+                # Go up
+                @app.send_action(:change_direction, Models::Direction::UP)
+            when "down"
+                # Go down
+                @app.send_action(:change_direction, Models::Direction::DOWN)
+            when "left"
+                # Go left
+                @app.send_action(:change_direction, Models::Direction::LEFT)
+            when "right"
+                # Go right
+                @app.send_action(:change_direction, Models::Direction::RIGHT)
+            end
         end
     end
 end
