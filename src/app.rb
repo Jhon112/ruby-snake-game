@@ -12,7 +12,7 @@ class App
 
     def start
         # Instance Ruby2dView
-        view = View::Ruby2dView.new
+        @view = View::Ruby2dView.new(self)
 
         # start uses main thread to do the render, because of that we need a new thread
         # to handle the render
@@ -29,6 +29,17 @@ class App
             # We call method render from view instance
             view.render(@state)
             sleep 0.5
+        end
+    end
+
+    def send_action(action, params)
+        new_state = Actions.send(action, @state, params)
+        # hash is calculated based on object fields
+        # if state hasn't change, state is the same due to it
+        # being calculated based on the same info
+        if new_state.hash != @state
+            @state = new_state 
+            @view.render(@state)
         end
     end
 end
