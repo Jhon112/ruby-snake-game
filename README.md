@@ -2,8 +2,8 @@
 
 ## description
 
-This project is a basic recreation of the popular snake game, it has a food object and a snake object.
-We use a State class to store the state of our different objects so we can manipulate them and check their attributes, this way we know how to render them, this model is based on Redux.
+This project is a basic recreation of the popular snake game, it has food and snake objects.
+A State class is used to store the state of our different objects, that way we can manipulate them and retrieve their attributes so we know how to render them, this model/work-flow is based on Redux.
 
 ## usage
 
